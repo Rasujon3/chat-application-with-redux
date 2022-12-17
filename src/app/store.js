@@ -7,9 +7,9 @@ import messagesSlice from "../features/messages/messagesSlice";
 export const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
-    auth: authSlice.reducer,
-    conversations: conversationsSlice.reducer,
-    messages: messagesSlice.reducer,
+    auth: authSlice,
+    conversations: conversationsSlice,
+    messages: messagesSlice,
   },
   devTools: process.env.NODE_ENV !== "production",
   middleware: (getDefaultMiddlewares) =>
