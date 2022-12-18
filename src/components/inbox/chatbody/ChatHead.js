@@ -5,10 +5,7 @@ export default function ChatHead({ message }) {
   console.log(message);
   const { user } = useSelector((state) => state.auth) || {};
   const { email } = user || {};
-  console.log(email);
   const { sender, receiver } = message || {};
-  //   console.log(sender);
-  //   console.log(receiver);
 
   const partnerEmail = sender?.email === email ? receiver?.email : sender.email;
   const partnerName = sender?.email === email ? receiver?.name : sender.name;
