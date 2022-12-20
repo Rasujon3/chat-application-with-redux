@@ -1,9 +1,16 @@
 import { useState } from "react";
+import { useGetUserQuery } from "../../features/users/usersApi";
 import isValidateEmail from "../../utils/isValidEmail";
+import Error from "../ui/Error";
 
 export default function Modal({ open, control }) {
   const [to, setTo] = useState("");
   const [message, setMessage] = useState("");
+  const [userCheck, setUserCheck] = useState(false);
+
+  const { data: participant } = useGetUserQuery(to, {
+    skip: !userCheck,
+  });
 
   const debounceHandler = (fn, delay) => {
     let timeoutId;
@@ -18,6 +25,7 @@ export default function Modal({ open, control }) {
   const doSearch = (value) => {
     if (isValidateEmail(value)) {
       // check user API
+      setUserCheck(true);
       setTo(value);
     }
   };
@@ -70,13 +78,16 @@ export default function Modal({ open, control }) {
             <div>
               <button
                 type="submit"
+                // disabled={isLoading}
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-violet-600 hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500"
               >
                 Send Message
               </button>
             </div>
 
-            {/* <Error message="There was an error" /> */}
+            {participant?.length === 0 && (
+              <Error message="This user doesn't exist" />
+            )}
           </form>
         </div>
       </>
