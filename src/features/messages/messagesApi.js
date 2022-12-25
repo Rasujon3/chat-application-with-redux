@@ -1,3 +1,4 @@
+import { io } from "socket.io-client";
 import { apiSlice } from "../api/apiSlice";
 
 export const messagesApi = apiSlice.injectEndpoints({
